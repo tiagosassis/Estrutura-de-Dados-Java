@@ -22,6 +22,9 @@ public class Main {
                     break;
 
                 case 2: // remove
+                    System.out.print("\nValue: ");
+                    value = sc.nextInt();
+                    listC.remove(value);
                     break;
 
                 case 3: // show all
@@ -32,9 +35,14 @@ public class Main {
                     System.out.print("Value to be search: ");
                     value = sc.nextInt();
                     listC.search(value);
+                    System.out.println(); // Espaçamento
                     break;
                     
                 case 5: // is empty
+                    if(listC.isEmpty())
+                        System.out.println("The list is empty.");
+                    else
+                    System.out.println("The list isn't empty.");
                     break;
 
                 case 0: // exit
