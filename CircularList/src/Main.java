@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
         CircularList listC = new CircularList(); 
         int op, value; // opção digitada no menu
         do{
@@ -12,18 +11,21 @@ public class Main {
                             "3 - Show all\n"+
                             "4 - Search\n"+
                             "5 - It's empty?\n"+
+                            "6 - Order\n" +
+                            "7 - Clear List\n" +
                             "0 - Exit\n..-> ");
-            op = sc.nextInt();
+            op = input();
+
             switch(op){
                 case 1: // add
                     System.out.print("\nValue: ");
-                    value = sc.nextInt();
+                    value = input();
                     listC.add(value);
                     break;
 
                 case 2: // remove
                     System.out.print("\nValue: ");
-                    value = sc.nextInt();
+                    value = input();
                     listC.remove(value);
                     break;
 
@@ -33,17 +35,27 @@ public class Main {
                     
                 case 4: // search
                     System.out.print("Value to be search: ");
-                    value = sc.nextInt();
+                    value = input();
                     listC.search(value);
                     System.out.println(); // Espaçamento
                     break;
                     
                 case 5: // is empty
                     if(listC.isEmpty())
-                        System.out.println("The list is empty.");
+                        System.out.println("\nThe list is empty.");
                     else
-                    System.out.println("The list isn't empty.");
+                        System.out.println("\nThe list isn't empty.");
                     break;
+                
+                case 6: // Order
+                    listC.order();
+                    break;
+
+                case 7:
+                    listC.clearList();
+                    System.out.println("\nAll value's removed.");
+                    break;
+
 
                 case 0: // exit
                     break;
@@ -52,5 +64,19 @@ public class Main {
                     System.out.println("Invalid option.");
             }
         }while(!(op == 0));
+    }
+
+    public static final int input(){ // Tratamento de exceção para a entrada de dados do usuário
+        while(true){
+            try{ // se o valor digitado não for um int, ele pede de novo até a entrada ser válida
+                Scanner sc = new Scanner(System.in);
+                int value = sc.nextInt();
+                return value;
+            }
+            catch (Exception e) {
+                System.out.println("Invalid value, enter an integer.");
+                System.out.print("-> ");
+            }
+        }
     }
 }

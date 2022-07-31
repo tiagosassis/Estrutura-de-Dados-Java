@@ -1,4 +1,3 @@
-import java.rmi.server.SocketSecurityException;
 
 public class CircularList{
     private Node cursor;
@@ -22,9 +21,9 @@ public class CircularList{
             newNode.setNext(cursor.getNext());
             newNode.setPrevious(cursor);
             cursor.setNext(newNode);
-            advance(2);
+            cursor = newNode.getNext();
             cursor.setPrevious(newNode);
-            regress();
+            cursor = newNode;
         }
         size++;
 
@@ -40,13 +39,12 @@ public class CircularList{
             return;
         }
         else{
-            Node cursorBackup = cursor; // guardando posição do cursor
-            advance(i);
+            advance(i); // cursor movido para o Node que deve ser removido
             Node cursorAux = cursor.getNext();
             regress();
             cursor.setNext(cursorAux);
-            cursorAux.setPrevious(cursor);
-            cursor = cursorBackup; // restaurando a posição inicial do cursor
+            cursorAux.setPrevious(cursor);//cursor = cursorBackup; // restaurando a posição inicial do cursor
+            advance(size - i); // passando o deslocamento do cursor para que a função advance retorne ele ao "inicio" da lista e á mantenha em ordem
             size--;
             System.out.println(value + "has been removed.");
         }
@@ -58,12 +56,13 @@ public class CircularList{
             return -1;
         }
         for(int i = 0; i < size; i++){
-            if(value == cursor.getValue()){
-                System.out.println(value + " was found in the " + (i+1) + "th position.");
-                advance(size - i); // passando o deslocamento do cursor para que a função advance retorne ele ao "inicio" da lista e mantenha ela em ordem
-                return i; // retorna o "indice" do value, este que será usado para a função de remoção
-            }
             advance(1);
+            if(value == cursor.getValue()){
+                i++;
+                System.out.println(value + " was found in the " + i + "th position.");
+                advance(size - i); // passando o deslocamento do cursor para que a função advance retorne ele ao "inicio" da lista e mantenha ela em ordem
+                return i; // retorna o "índice" do value, este que será usado para a função de remoção
+            }
         }
         System.out.print("Value isn't found");
         return -1;
@@ -78,6 +77,40 @@ public class CircularList{
             advance(1);
             System.out.println("Value:" + cursor.getValue());
         }
+    }  
+    public void order(){
+        Node cursorAux;
+        int[] vetor = {3,1,4,5,23};
+        int value;
+        for(int i = 0; i < size; i++){
+            advance(i);
+            cursorAux = cursor;
+            for(int j = i; j < size; j++){
+                if(cursor.getValue() > cursorAux.getValue()){
+                    value = cursorAux.getValue();
+                    cursorAux.setValue(cursor.getValue());
+                    cursor.setValue(value);
+                }
+                cursorAux = cursorAux.getNext();
+            }
+        }
+        for(int i = 0; i < 5; i++){
+            for(int j = i; j < 5; j++){
+                if(vetor[i] > vetor[j]){
+                    value = vetor[j];
+                    vetor[j] = vetor[i];
+                    vetor[i] = value;
+                }
+            }
+        }
+        for(int i = 0; i < 5; i++){
+            System.out.println(vetor[i]);
+        }
+
+    }
+    public void clearList(){
+        cursor = null;
+        size = 0;
     }
     public void advance(int k){ // avança o cursor em uma posição na lista
         // recebe como parâmetro o valor que precisa ser deslocado na lista
