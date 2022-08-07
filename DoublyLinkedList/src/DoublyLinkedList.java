@@ -56,19 +56,27 @@ public class DoublyLinkedList {
         }
         size++;
     }
-    public void remove(){
-
+    public void remove(int value){
+        cursor = head;
+        for(int i = 0; i < size; i++){
+            if(cursor.getValue() == value){
+                
+            }
+            advance();
+        }
+        size--; 
     }
-    public void search(int value){
+    public int search(int value){
         cursor = head;
         for(int i = 0; i < size; i++){
             if(cursor.getValue() == value){
                 System.out.println("Value " + value + " found.");
+                return i;
             }
             advance();
-            return;
         }
         System.out.println("Value " + value + " not found.");
+        return -1;
     }
     public boolean isEmpty(){
         if(size == 0)

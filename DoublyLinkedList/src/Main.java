@@ -29,7 +29,7 @@ public class Main {
                     }
                     System.out.print("What number you want to remove: ");
                     value = sc.nextInt();
-                    list.remove();
+                    list.remove(value);
                     break;
 
                 case 3:
