@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 public class DoublyLinkedList {
     private int size;
     private Node head, tail, cursor;
@@ -57,14 +59,32 @@ public class DoublyLinkedList {
         size++;
     }
     public void remove(int value){
+        Node cursorAux;
         cursor = head;
         for(int i = 0; i < size; i++){
             if(cursor.getValue() == value){
-                
+                if(i == 0){
+                    advance();
+                    this.head = cursor;
+                    break;
+                }
+                else if(i == (size-1)){
+                    cursor = cursor.getPrevious();
+                    this.tail = cursor;
+                    break;
+                }
+                else{
+                    cursorAux = cursor.getPrevious();
+                    advance();
+                    cursor.setPrevious(cursorAux);
+                    cursorAux.setNext(cursor);
+                    break;
+                }
             }
             advance();
         }
-        size--; 
+        size--;
+        System.out.println(value + " has been removed.");
     }
     public int search(int value){
         cursor = head;
@@ -101,8 +121,9 @@ public class DoublyLinkedList {
         }
         return "";
     }
-    private void advance(){
-        cursor = cursor.getNext();
+    private void advance() throws NullPointerException{
+        if(!(cursor.getNext() == null))
+            cursor = cursor.getNext();
     }
 
 }
