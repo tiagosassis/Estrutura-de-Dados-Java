@@ -11,8 +11,7 @@ public class Main {
                             "3 - Show all\n"+
                             "4 - Search\n"+
                             "5 - It's empty?\n"+
-                            "6 - Order\n" +
-                            "7 - Clear List\n" +
+                            "6 - Clear List\n" +
                             "0 - Exit\n..-> ");
             op = input();
 
@@ -46,12 +45,8 @@ public class Main {
                     else
                         System.out.println("\nThe list isn't empty.");
                     break;
-                
-                case 6: // Order
-                    listC.order();
-                    break;
 
-                case 7:
+                case 6:
                     listC.clearList();
                     System.out.println("\nAll value's removed.");
                     break;

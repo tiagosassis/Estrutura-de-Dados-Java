@@ -78,36 +78,6 @@ public class CircularList{
             System.out.println("Value:" + cursor.getValue());
         }
     }  
-    public void order(){
-        Node cursorAux;
-        int[] vetor = {3,1,4,5,23};
-        int value;
-        for(int i = 0; i < size; i++){
-            advance(i);
-            cursorAux = cursor;
-            for(int j = i; j < size; j++){
-                if(cursor.getValue() > cursorAux.getValue()){
-                    value = cursorAux.getValue();
-                    cursorAux.setValue(cursor.getValue());
-                    cursor.setValue(value);
-                }
-                cursorAux = cursorAux.getNext();
-            }
-        }
-        for(int i = 0; i < 5; i++){
-            for(int j = i; j < 5; j++){
-                if(vetor[i] > vetor[j]){
-                    value = vetor[j];
-                    vetor[j] = vetor[i];
-                    vetor[i] = value;
-                }
-            }
-        }
-        for(int i = 0; i < 5; i++){
-            System.out.println(vetor[i]);
-        }
-
-    }
     public void clearList(){
         cursor = null;
         size = 0;
